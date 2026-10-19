@@ -234,8 +234,6 @@ function App() {
     return () => clearInterval(timer);
   }, [admin]);
 
-  if (admin) return <Admin />;
-
   const menProducts = products.filter((p) => p.category === 'Men');
   const menBrands = Array.from(new Set(menProducts.map((p) => p.brand || 'REBORN'))).sort();
   const list = useMemo(() => {
@@ -248,6 +246,8 @@ function App() {
         (menSize === 'All' || (p.sizes || []).includes(menSize)),
     );
   }, [products, category, menTab, menBrand, menSize, comboSaleOnly]);
+
+  if (admin) return <Admin />;
 
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
   const cartTotal = cart.reduce((sum, item) => sum + effectivePrice(item.product) * item.qty, 0);
