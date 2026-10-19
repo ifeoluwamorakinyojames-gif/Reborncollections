@@ -152,6 +152,7 @@ function App() {
   const [selectedSize, setSelectedSize] = useState('');
   const [menu, setMenu] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [menTab, setMenTab] = useState(initialCollection.subcategory || 'All Men');
   const [menBrand, setMenBrand] = useState('All');
   const [menSize, setMenSize] = useState('All');
@@ -220,8 +221,12 @@ function App() {
   async function load() {
     try {
       const r = await api.get('/api/site');
-      setSettings({ ...defaults, ...r.data.settings });
-      setProducts(r.data.products || []);
+      setSettings({ ...defaults, ...(r.data?.settings || {}) });
+      setProducts(Array.isArray(r.data?.products) ? r.data.products : []);
+      setLoadError(false);
+    } catch (err) {
+      console.error('Unable to load the REBORN product catalogue:', err);
+      setLoadError(true);
     } finally {
       setLoading(false);
     }
@@ -404,6 +409,7 @@ function App() {
             {newArrivals.length > 1 && <div className='newArrivalDots'>{newArrivals.map((item, i) => <button key={item.id} aria-label={'Show new arrival ' + (i + 1)} className={i === newArrivalIndex ? 'active' : ''} onClick={() => setNewArrivalIndex(i)} />)}</div>}
           </section>
         )}
+        {loadError && <div role='alert' className='catalogueError'>The catalogue could not be updated. Please try again or message us on WhatsApp for availability. <button onClick={() => void load()}>Retry</button></div>}
         <div className='shopHead'>
           <div>
             <small>LIVE FROM ADMIN</small>
