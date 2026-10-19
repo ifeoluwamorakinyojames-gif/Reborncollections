@@ -28,3 +28,5 @@
 @media(hover:hover){.site .photo:hover img,.site .newArrivalImage:hover img{transform:scale(1.035)}}
 @media(max-width:640px){.heroCtas{flex-direction:column;align-items:stretch}.heroCtas a{width:100%;box-sizing:border-box}.hero h1{overflow-wrap:anywhere}.site nav{gap:10px}.brand{min-width:0}.navActions{flex-shrink:0}}
 @media(prefers-reduced-motion:reduce){.heroCtas a,.site .photo img,.site .newArrivalImage img{transition:none!important;transform:none!important}}
+
+.catalogueError{margin:18px 0;padding:16px 20px;border:1px solid #e6ad86;border-radius:14px;background:#fff4eb;color:#753315;line-height:1.5;display:flex;align-items:center;gap:16px;flex-wrap:wrap}.catalogueError button{border:0;background:#a54215;color:white;border-radius:20px;padding:9px 16px;font-weight:800;cursor:pointer}
